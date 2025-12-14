@@ -1,0 +1,5 @@
+{
+  "name": "NexusFlow",
+  "description": "A Context-to-Execution Pipeline that transforms high-level goals into actionable, AI-executed steps using Gemini 2.5 Flash and Pro models.",
+  "requestFramePermissions": []
+}
