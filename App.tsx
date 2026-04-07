@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Main Application component for NexusFlow.
+ * Handles state management for the execution pipeline, user context, and UI routing/rendering.
+ */
 import React, { useState } from 'react';
 import { Boxes, Zap, ArrowRight, Loader2, Sparkles, CheckCircle2, Circle } from 'lucide-react';
 import { PlanStepCard } from './components/PlanStepCard';
@@ -5,6 +9,14 @@ import { StepExecutor } from './components/StepExecutor';
 import { PlanStep, StepStatus, ContextData, PipelineStage } from './types';
 import { generateExecutionPlan, executeStepStream } from './services/geminiService';
 
+/**
+ * The primary root component of the NexusFlow application.
+ * Manages the global state of the project context, generated execution steps,
+ * and tracks the currently active/executing pipeline modules.
+ *
+ * @component
+ * @returns {React.JSX.Element} The completely rendered App structure.
+ */
 const App: React.FC = () => {
   // State for Context Input
   const [context, setContext] = useState<ContextData>({
@@ -24,10 +36,22 @@ const App: React.FC = () => {
   // Derived state
   const activeStep = steps.find(s => s.id === activeStepId);
 
+  /**
+   * Updates a specific field within the global context state.
+   *
+   * @param {keyof ContextData} field - The key of the context data being updated.
+   * @param {string} value - The new value to set.
+   */
   const handleContextChange = (field: keyof ContextData, value: string) => {
     setContext(prev => ({ ...prev, [field]: value }));
   };
 
+  /**
+   * Submits the current user context to the AI Orchestrator to generate
+   * a structured execution plan. Updates state with the resulting steps.
+   *
+   * @async
+   */
   const handleGeneratePlan = async () => {
     if (!context.goal.trim()) return;
     
@@ -54,6 +78,13 @@ const App: React.FC = () => {
     }
   };
 
+  /**
+   * Triggers the AI stream execution for a specific plan step.
+   * Streams chunks of data back into the step's result state.
+   *
+   * @async
+   * @param {PlanStep} step - The specific step object to execute.
+   */
   const handleExecuteStep = async (step: PlanStep) => {
     if (isExecutingStep) return;
 
@@ -93,6 +124,9 @@ const App: React.FC = () => {
     }
   };
 
+  /**
+   * Resets the entire application state back to the initial input phase.
+   */
   const resetPipeline = () => {
     setSteps([]);
     setActiveStepId(null);
@@ -101,6 +135,11 @@ const App: React.FC = () => {
   };
 
   // Pipeline Progress Component
+  /**
+   * Renders the visual timeline indicator showing current application phase.
+   *
+   * @returns {React.JSX.Element} The progress bar component.
+   */
   const PipelineProgress = () => (
     <div className="flex items-center gap-4 text-sm font-medium mb-6 px-4">
       <div className={`flex items-center gap-2 ${pipelineStage === PipelineStage.INPUT ? 'text-nexus-accent' : 'text-nexus-300'}`}>

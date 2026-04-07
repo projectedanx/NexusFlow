@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Entry point for the React application.
+ * Bootstraps the root component and attaches it to the HTML DOM.
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
