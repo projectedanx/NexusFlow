@@ -1,15 +1,36 @@
+/**
+ * @fileoverview Defines the StepExecutor component, which provides the primary workspace
+ * for running and reviewing the output of individual AI module steps.
+ */
+
 import React, { useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { PlanStep, StepStatus, StepType } from '../types';
 import { Play, RotateCcw, Copy, Check, Cpu, BrainCircuit, Activity } from 'lucide-react';
 import { MODULES } from '../services/geminiService';
 
+/**
+ * Props for the StepExecutor component.
+ *
+ * @interface StepExecutorProps
+ * @property {PlanStep} step - The currently selected execution step to be processed or reviewed.
+ * @property {(step: PlanStep) => void} onExecute - Callback fired to trigger the AI execution pipeline for this step.
+ * @property {boolean} isExecuting - Flag indicating whether the AI is currently generating a response for this step.
+ */
 interface StepExecutorProps {
   step: PlanStep;
   onExecute: (step: PlanStep) => void;
   isExecuting: boolean;
 }
 
+/**
+ * A functional React component representing the main execution workspace.
+ * Displays module telemetry, execution controls, and a Markdown-rendered output stream.
+ *
+ * @component
+ * @param {StepExecutorProps} props - The properties passed to the component.
+ * @returns {React.JSX.Element} The rendered execution interface.
+ */
 export const StepExecutor: React.FC<StepExecutorProps> = ({ step, onExecute, isExecuting }) => {
   const [copied, setCopied] = React.useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
@@ -22,6 +43,10 @@ export const StepExecutor: React.FC<StepExecutorProps> = ({ step, onExecute, isE
     }
   }, [step.result, isExecuting]);
 
+  /**
+   * Handles copying the generated AI result to the system clipboard.
+   * Briefly shows a success state to the user.
+   */
   const handleCopy = () => {
     if (step.result) {
       navigator.clipboard.writeText(step.result);

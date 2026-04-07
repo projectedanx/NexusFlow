@@ -1,13 +1,32 @@
+/**
+ * @fileoverview Defines the PlanStepCard component, which renders a single actionable
+ * step within the execution pipeline list on the UI.
+ */
+
 import React from 'react';
 import { PlanStep, StepStatus, StepType } from '../types';
 import { Play, CheckCircle, CircleDashed, Clock, Code, PenTool, Lightbulb, BarChart, BrainCircuit } from 'lucide-react';
 
+/**
+ * Props for the PlanStepCard component.
+ *
+ * @interface PlanStepCardProps
+ * @property {PlanStep} step - The data object containing step details (title, status, type, etc.).
+ * @property {boolean} isActive - Flag indicating if this card is currently selected by the user.
+ * @property {(step: PlanStep) => void} onSelect - Callback fired when the card is clicked.
+ */
 interface PlanStepCardProps {
   step: PlanStep;
   isActive: boolean;
   onSelect: (step: PlanStep) => void;
 }
 
+/**
+ * Resolves the appropriate Lucide icon component based on the step's Module Type.
+ *
+ * @param {StepType} type - The designated type/category of the execution step.
+ * @returns {React.JSX.Element} The rendered React element for the associated icon.
+ */
 const getTypeIcon = (type: StepType) => {
   switch (type) {
     case StepType.TECHNICAL: return <Code className="w-4 h-4 text-emerald-400" />;
@@ -18,6 +37,12 @@ const getTypeIcon = (type: StepType) => {
   }
 };
 
+/**
+ * Resolves the appropriate status indicator element based on the step's current state.
+ *
+ * @param {StepStatus} status - The current operational status of the step.
+ * @returns {React.JSX.Element | null} The rendered status icon or spinner, or null if unhandled.
+ */
 const getStatusIcon = (status: StepStatus) => {
   switch (status) {
     case StepStatus.COMPLETED: return <CheckCircle className="w-5 h-5 text-green-500" />;
@@ -28,6 +53,14 @@ const getStatusIcon = (status: StepStatus) => {
   }
 };
 
+/**
+ * A functional React component that displays a summary card for a specific plan step.
+ * Includes status indicators, module badges, and an interactive "play" hover state.
+ *
+ * @component
+ * @param {PlanStepCardProps} props - The properties passed to the component.
+ * @returns {React.JSX.Element} The interactive card element for the pipeline list.
+ */
 export const PlanStepCard: React.FC<PlanStepCardProps> = ({ step, isActive, onSelect }) => {
   return (
     <div 
