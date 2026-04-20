@@ -1,0 +1,2 @@
+- **Instability**: Root level files contained the application code like App.tsx, index.tsx, components, and services, causing structural clutter ("hallway trash"). Additionally, tsconfig.json and vite.config.ts were mapped incorrectly for a src/ directory structure.
+- **Fortification**: Migrated application source files to a dedicated `src/` directory, sweeping the root level. Corrected alias mappings in `tsconfig.json` and `vite.config.ts` to reflect the `src/` directory. Restored `<script type="module" src="/src/index.tsx"></script>` entry point to `index.html`.

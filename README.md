@@ -20,15 +20,19 @@ The primary purpose of this application is to demonstrate complex orchestrations
 ## Project Structure
 ```text
 .
-├── App.tsx                        // Main application component and state management
-├── index.tsx                      // React entry point
-├── types.ts                       // Core TypeScript interfaces and enums for the pipeline
+├── src/                           // Main source code directory
+│   ├── App.tsx                    // Main application component and state management
+│   ├── index.tsx                  // React entry point
+│   ├── types.ts                   // Core TypeScript interfaces and enums for the pipeline
+│   ├── components/
+│   │   ├── PlanStepCard.tsx       // UI Component: Interactive card for a pipeline step
+│   │   └── StepExecutor.tsx       // UI Component: Execution workspace and output renderer
+│   └── services/
+│       └── geminiService.ts       // API Integration: Logic for communicating with Gemini API
+├── index.html                     // HTML entry point
 ├── vite.config.ts                 // Build configuration for Vite
-├── components/
-│   ├── PlanStepCard.tsx           // UI Component: Interactive card for a pipeline step
-│   └── StepExecutor.tsx           // UI Component: Execution workspace and output renderer
-└── services/
-    └── geminiService.ts           // API Integration: Logic for communicating with Gemini API
+├── tsconfig.json                  // TypeScript configuration
+└── package.json                   // Dependencies and scripts
 ```
 
 ## Setup & Local Development
