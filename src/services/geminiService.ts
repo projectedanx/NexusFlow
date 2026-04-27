@@ -13,7 +13,7 @@ import { PlanStep, StepType, StepStatus, ModuleConfig } from "../types";
  * Initializes and returns an instance of the Google Gen AI client.
  * Relies on the `API_KEY` environment variable being set in the process.
  *
- * @returns {GoogleGenAI} An authenticated instance of the Google Gen AI client.
+ * @returns {GoogleGenAI} An authenticated instance of the Google Gen AI client configured for the application's environment.
  * @throws {Error} If the API_KEY environment variable is missing or undefined.
  */
 const getAiClient = () => {
@@ -75,13 +75,15 @@ export const MODULES: Record<StepType, ModuleConfig> = {
 /**
  * Generates a structured execution plan by querying the AI orchestrator.
  * Deconstructs the primary goal into a linear pipeline of actionable steps.
+ * Includes PDL decorators (`+++DCCDSchemaGuard`, `+++ContextLock`) in the prompt to prevent
+ * workflow narrowing and enforce strict JSON schema adherence.
  *
  * @async
  * @param {string} goal - The primary objective to be achieved.
  * @param {string} constraints - Limitations or boundaries the plan must respect.
  * @param {string} resources - Available assets or context to aid execution.
  * @param {boolean} isDeep - Flag indicating whether to use Deep Reasoning (Gemini 3 Pro) for planning.
- * @returns {Promise<PlanStep[]>} A promise resolving to an array of initialized PlanStep objects.
+ * @returns {Promise<PlanStep[]>} A promise resolving to an array of initialized PlanStep objects representing the generated pipeline.
  */
 export const generateExecutionPlan = async (
   goal: string,
@@ -95,6 +97,8 @@ export const generateExecutionPlan = async (
   // Refined prompt to ensure the AI acts as the "Pipeline Orchestrator"
   const prompt = `
     You are the NexusFlow Pipeline Orchestrator.
+    +++DCCDSchemaGuard(schema="Pipeline", enforcement="draft_conditioned")
+    +++ContextLock(anchor="Goal-Constraints", refresh_interval=2048)
     
     INPUT CONTEXT:
     Goal: ${goal}
@@ -111,7 +115,7 @@ export const generateExecutionPlan = async (
 
     OUTPUT:
     Return a JSON array of steps.
-  `;
+`;
 
   const response = await ai.models.generateContent({
     model: modelName,
@@ -154,11 +158,15 @@ export const generateExecutionPlan = async (
  * Configures the AI client according to the step's designated module persona
  * and the original reasoning depth constraints.
  *
+ * When executing in 'DEEP' mode, the prompt includes PDL decorators
+ * (`+++IncoherentDictionary`, `+++EpistemicEscrow`) to mitigate
+ * Polyglot Hallucination Resonance and prevent hallucination cascades during extended reasoning.
+ *
  * @async
  * @generator
- * @param {PlanStep} step - The step object detailing the task to be executed.
- * @param {{ goal: string; constraints: string; resources: string; depth: 'FAST' | 'DEEP' }} originalContext - The global context from which the plan originated.
- * @yields {string} Consecutive text chunks forming the AI's response to the task.
+ * @param {PlanStep} step - The step object detailing the task to be executed, including its designated AI module type.
+ * @param {{ goal: string; constraints: string; resources: string; depth: 'FAST' | 'DEEP' }} originalContext - The global context from which the plan originated, used to ground the execution.
+ * @yields {string} Consecutive text chunks forming the AI's response to the task as they are generated.
  */
 export const executeStepStream = async function* (
   step: PlanStep,
@@ -190,7 +198,9 @@ export const executeStepStream = async function* (
     [ACTIVE MODULE]
     Name: ${moduleConfig.name}
     Role: ${moduleConfig.persona}
-    ${isThinkingMode ? '[MODE: DEEP THINKING ACTIVATED - EXECUTE WITH MAXIMUM REASONING]' : ''}
+    ${isThinkingMode ? `[MODE: DEEP THINKING ACTIVATED - EXECUTE WITH MAXIMUM REASONING]
+    +++IncoherentDictionary(classes=["GEMINI_3_PRO", "ORCHESTRATOR"], coherence_penalty="maximum")
+    +++EpistemicEscrow(cfd_threshold=0.15, halt_on_divergence=true)` : ''}
 
     [EXECUTION TARGET]
     Task: ${step.title}
@@ -200,7 +210,7 @@ export const executeStepStream = async function* (
     Execute the target task utilizing your specific role and capabilities. 
     Maintain strict adherence to the defined constraints.
     Format output with clean, structured Markdown.
-  `;
+`;
 
   const streamResponse = await ai.models.generateContentStream({
     model: activeModel,
