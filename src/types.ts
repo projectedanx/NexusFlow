@@ -65,6 +65,20 @@ export interface ExecutionPlan {
 /**
  * Holds the input context provided by the user to generate a plan.
  */
+
+/**
+ * Represents a human-identified structural tension or contradiction.
+ * Paraconsistent logic dictates this tension is preserved, not resolved.
+ */
+export interface Scar {
+  /** Unique identifier for the scar. */
+  id: string;
+  /** The description of the contradiction or tension to preserve. */
+  description: string;
+  /** Timestamp of when the scar was recorded. */
+  timestamp: number;
+}
+
 export interface ContextData {
   /** The main objective or desired outcome. */
   goal: string;
@@ -76,6 +90,8 @@ export interface ContextData {
   depth: 'FAST' | 'DEEP';
   /** Shared memory context for Paraconsistent Stigmergic Coordination */
   scratchpad?: string;
+  /** Symbolic Scar Registry to maintain epistemic tension */
+  scars?: Scar[];
 }
 
 /**
