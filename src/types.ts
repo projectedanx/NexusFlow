@@ -74,6 +74,8 @@ export interface ContextData {
   resources: string;
   /** Determines the reasoning depth applied during generation (FAST vs. DEEP). */
   depth: 'FAST' | 'DEEP';
+  /** Shared memory context for Paraconsistent Stigmergic Coordination */
+  scratchpad?: string;
 }
 
 /**

@@ -31,3 +31,13 @@ When a specific step is executed, particularly in "Deep Thinking" mode where the
 ## Conclusion
 
 By treating LLM prompts not just as instructions, but as structural and epistemic constraints, we can build more reliable agentic workflows. The integration of DRP-LEXICON-992 into NexusFlow serves as a foundational example of this approach.
+
+### 3. Integrating Paraconsistent Stigmergic Coordination (PAT-008)
+
+To elevate NexusFlow beyond a simple AI orchestrator, we implemented the "Paraconsistent Stigmergic Coordination" pattern. This explicitly demonstrates the value of human-in-the-loop reflexive synthesis combined with AI determinism.
+
+*   **The Problem:** Agentic swarms often lose context across complex pipelines, leading to "Semantic Bleaching" or "Alignment Faking".
+*   **The Mechanism (Stigmergic Scratchpad):** We introduced a shared memory state (`scratchpad`) accessible to both the human user and the AI orchestrator.
+    *   **Human Value:** The user reviews AI outputs (e.g., from the Strategic Core) and uses the "Append to Scratchpad" function to store them. Crucially, the user can then manually edit this scratchpad to synthesize themes, enforce cross-domain constraints, or inject "Symbolic Scars" (documenting known failure modes to avoid).
+    *   **AI Value:** The AI specialized personas process these complex, possibly contradictory, directives rapidly within their domain constraints.
+*   **The PDL Integration:** When the scratchpad is populated, we dynamically inject the `+++DictionaryAnchor(ground_truth="SCRATCHPAD", enforcement="strict")` decorator into the prompt (specifically referencing PAT-008). This forces the AI's internal representation (via Holographic Reduced Representations, theoretically) to anchor its reasoning to the shared stigmergic trace, preventing it from hallucinating solutions that violate the human's synthesized constraints.

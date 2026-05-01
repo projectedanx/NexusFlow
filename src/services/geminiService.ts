@@ -170,7 +170,7 @@ export const generateExecutionPlan = async (
  */
 export const executeStepStream = async function* (
   step: PlanStep,
-  originalContext: { goal: string; constraints: string; resources: string; depth: 'FAST' | 'DEEP' }
+  originalContext: { goal: string; constraints: string; resources: string; depth: 'FAST' | 'DEEP'; scratchpad?: string }
 ) {
   const ai = getAiClient();
   
@@ -194,6 +194,8 @@ export const executeStepStream = async function* (
     Goal: ${originalContext.goal}
     Constraints: ${originalContext.constraints}
     Resources: ${originalContext.resources}
+    ${originalContext.scratchpad ? `Stigmergic Scratchpad (Shared Memory Context):
+${originalContext.scratchpad}` : ''}
 
     [ACTIVE MODULE]
     Name: ${moduleConfig.name}
@@ -201,6 +203,7 @@ export const executeStepStream = async function* (
     ${isThinkingMode ? `[MODE: DEEP THINKING ACTIVATED - EXECUTE WITH MAXIMUM REASONING]
     +++IncoherentDictionary(classes=["GEMINI_3_PRO", "ORCHESTRATOR"], coherence_penalty="maximum")
     +++EpistemicEscrow(cfd_threshold=0.15, halt_on_divergence=true)` : ''}
+    ${originalContext.scratchpad ? '+++DictionaryAnchor(ground_truth="SCRATCHPAD", enforcement="strict")' : ''}
 
     [EXECUTION TARGET]
     Task: ${step.title}
