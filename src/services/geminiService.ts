@@ -170,7 +170,7 @@ export const generateExecutionPlan = async (
  */
 export const executeStepStream = async function* (
   step: PlanStep,
-  originalContext: { goal: string; constraints: string; resources: string; depth: 'FAST' | 'DEEP'; scratchpad?: string }
+  originalContext: import('../types').ContextData
 ) {
   const ai = getAiClient();
   
@@ -197,6 +197,9 @@ export const executeStepStream = async function* (
     ${originalContext.scratchpad ? `Stigmergic Scratchpad (Shared Memory Context):
 ${originalContext.scratchpad}` : ''}
 
+    ${originalContext.scars && originalContext.scars.length > 0 ? `+++SymbolicScarRegistry(enforcement="strict")
+    [SYMBOLIC SCARS - DO NOT RESOLVE TENSIONS]:
+    ${originalContext.scars.map(s => `- [⊘] ${s.description}`).join('\n    ')}` : ''}
     [ACTIVE MODULE]
     Name: ${moduleConfig.name}
     Role: ${moduleConfig.persona}

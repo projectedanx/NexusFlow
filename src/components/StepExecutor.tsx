@@ -22,6 +22,7 @@ interface StepExecutorProps {
   onExecute: (step: PlanStep) => void;
   isExecuting: boolean;
   onAppendToScratchpad?: (text: string) => void;
+  onMarkAsScar?: (text: string) => void;
 }
 
 /**
@@ -149,6 +150,16 @@ export const StepExecutor: React.FC<StepExecutorProps> = ({ step, onExecute, isE
                   >
                     <PlusSquare className="w-3.5 h-3.5" />
                     Append to Scratchpad
+                  </button>
+                )}
+                {onMarkAsScar && step.result && (
+                  <button
+                    onClick={() => onMarkAsScar(step.result!)}
+                    className="flex items-center gap-1.5 px-2 py-1 text-xs font-medium rounded bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20 transition-colors"
+                    title="Mark as Symbolic Scar [⊘]"
+                  >
+                    <PlusSquare className="w-3.5 h-3.5" />
+                    Mark Scar [⊘]
                   </button>
                 )}
                 <button
