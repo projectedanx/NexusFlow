@@ -6,7 +6,7 @@
 import React, { useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { PlanStep, StepStatus, StepType } from '../types';
-import { Play, RotateCcw, Copy, Check, Cpu, BrainCircuit, Activity } from 'lucide-react';
+import { Play, RotateCcw, Copy, Check, Cpu, BrainCircuit, Activity, PlusSquare } from 'lucide-react';
 import { MODULES } from '../services/geminiService';
 
 /**
@@ -21,6 +21,7 @@ interface StepExecutorProps {
   step: PlanStep;
   onExecute: (step: PlanStep) => void;
   isExecuting: boolean;
+  onAppendToScratchpad?: (text: string) => void;
 }
 
 /**
@@ -31,7 +32,7 @@ interface StepExecutorProps {
  * @param {StepExecutorProps} props - The properties passed to the component.
  * @returns {React.JSX.Element} The rendered execution interface.
  */
-export const StepExecutor: React.FC<StepExecutorProps> = ({ step, onExecute, isExecuting }) => {
+export const StepExecutor: React.FC<StepExecutorProps> = ({ step, onExecute, isExecuting, onAppendToScratchpad }) => {
   const [copied, setCopied] = React.useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
   const activeModule = MODULES[step.type];
@@ -139,13 +140,25 @@ export const StepExecutor: React.FC<StepExecutorProps> = ({ step, onExecute, isE
                  <div className={`w-2 h-2 rounded-full ${isExecuting ? 'bg-emerald-500 animate-pulse' : 'bg-nexus-600'}`} />
                  Output Stream
               </span>
-              <button 
-                onClick={handleCopy}
-                className="p-1.5 rounded hover:bg-nexus-700 text-nexus-400 hover:text-white transition-colors"
-                title="Copy output"
-              >
-                {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
-              </button>
+              <div className="flex items-center gap-2">
+                {onAppendToScratchpad && step.result && (
+                  <button
+                    onClick={() => onAppendToScratchpad(step.result!)}
+                    className="flex items-center gap-1.5 px-2 py-1 text-xs font-medium rounded bg-purple-500/10 text-purple-400 border border-purple-500/20 hover:bg-purple-500/20 transition-colors"
+                    title="Append to Stigmergic Scratchpad"
+                  >
+                    <PlusSquare className="w-3.5 h-3.5" />
+                    Append to Scratchpad
+                  </button>
+                )}
+                <button
+                  onClick={handleCopy}
+                  className="p-1.5 rounded hover:bg-nexus-700 text-nexus-400 hover:text-white transition-colors"
+                  title="Copy output"
+                >
+                  {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
             <div 
               ref={resultRef}

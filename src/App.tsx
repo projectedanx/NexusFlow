@@ -24,6 +24,7 @@ const App: React.FC = () => {
     constraints: '',
     resources: '',
     depth: 'FAST',
+    scratchpad: '',
   });
 
   // Application State
@@ -85,6 +86,13 @@ const App: React.FC = () => {
    * @async
    * @param {PlanStep} step - The specific step object to execute.
    */
+  const handleAppendToScratchpad = (text: string) => {
+    setContext(prev => ({
+      ...prev,
+      scratchpad: prev.scratchpad ? `${prev.scratchpad}\n\n${text}` : text
+    }));
+  };
+
   const handleExecuteStep = async (step: PlanStep) => {
     if (isExecutingStep) return;
 
@@ -310,6 +318,28 @@ const App: React.FC = () => {
                 </div>
             </div>
 
+            {/* Stigmergic Scratchpad (Human-AI Shared Memory) */}
+            {hasPlan && (
+              <div className="bg-nexus-800 rounded-2xl p-4 border border-nexus-700 shadow-xl mb-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-5 h-5 text-purple-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M16 13H8"></path><path d="M16 17H8"></path><path d="M10 9H8"></path></svg>
+                  </div>
+                  <h3 className="text-sm font-semibold text-white">Stigmergic Scratchpad</h3>
+                </div>
+                <p className="text-xs text-nexus-400 mb-3 leading-relaxed">
+                  Reflexive Thematic Synthesis area. Review AI outputs and append critical insights or "Symbolic Scars" here to guide subsequent pipeline steps.
+                </p>
+                <textarea
+                  className="w-full bg-nexus-900 border border-nexus-700 rounded-lg p-3 text-sm text-nexus-200 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all custom-scrollbar placeholder:text-nexus-600/50"
+                  rows={4}
+                  placeholder="Shared memory context... AI will be strictly anchored to constraints defined here."
+                  value={context.scratchpad}
+                  onChange={(e) => handleContextChange('scratchpad', e.target.value)}
+                />
+              </div>
+            )}
+
             {/* Plan List (Only visible after generation) */}
             {hasPlan && (
                 <div className="flex-1 flex flex-col min-h-0">
@@ -344,6 +374,7 @@ const App: React.FC = () => {
                 step={activeStep}
                 onExecute={handleExecuteStep}
                 isExecuting={isExecutingStep && activeStepId === activeStep.id}
+                onAppendToScratchpad={handleAppendToScratchpad}
                 />
             </div>
             )}
