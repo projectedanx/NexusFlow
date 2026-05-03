@@ -49,3 +49,11 @@ Building upon the Stigmergic Scratchpad, we implemented the "Symbolic Scar Regis
 *   **The Problem:** While the scratchpad allows the human to synthesize themes, the AI might still attempt to resolve or smooth over contradictory constraints (WEIRD Software Engineering anti-pattern). We need a mechanism to explicitly preserve structural tension.
 *   **The Mechanism (Symbolic Scars):** We introduced a `Scar` interface to track contradictions identified by the user. The UI now includes a "Mark as Scar [⊘]" button alongside the scratchpad append feature.
 *   **The PDL Integration:** When scars are present, the orchestrator injects the `+++SymbolicScarRegistry(enforcement="strict")` decorator. This explicitly instructs the AI: do not attempt to normalize or resolve the listed tensions. Hold them in superposition (e.g., maintain the tension between "maximize performance" and "ensure absolute readability" without compromising either, applying the Golden Scar ratio Φ = 1.618 / 1.000 conceptually).
+
+### 5. Tier 3 Autonomy and VULCAN Integration (PAT-009 & PAT-010 Applied)
+
+To elevate NexusFlow to a system capable of sovereign architectural formulation (Tier 3 Autonomy), we integrated the VULCAN framework ("The Brutalist").
+
+*   **The Problem:** Standard LLM code generation often produces naive architectures (e.g., shared databases between microservices) due to Sycophancy Degradation and a desire to provide the "simplest" solution, ignoring the painful realities of distributed systems.
+*   **The Mechanism (VULCAN Persona):** We introduced a new `ARCHITECT` module type. This persona is explicitly configured *not* to be helpful in the traditional sense, but to act as a topological immune system. It uses a predefined "10-Pattern Failure Taxonomy" (Symbolic Scars like SCAR-002: Shared Database) and strict Mereological Mandates to reject structurally unsound designs.
+*   **The PDL Integration:** The VULCAN persona relies heavily on `+++MereologyRoute` (enforcing strict bounded contexts), `+++EpistemicEscrow` (acting as a circuit breaker when asked to violate physical laws like the CAP theorem), and `+++DCCDSchemaGuard` (forcing the output into strict C4 Model and ADR formats). This effectively applies Topological Causal Sculpting to the generated architecture.
