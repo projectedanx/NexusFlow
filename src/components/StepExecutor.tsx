@@ -68,6 +68,7 @@ export const StepExecutor: React.FC<StepExecutorProps> = ({ step, onExecute, isE
                     step.type === StepType.TECHNICAL ? 'bg-emerald-500/10 border-emerald-500/50 text-emerald-400' :
                     step.type === StepType.CREATIVE ? 'bg-purple-500/10 border-purple-500/50 text-purple-400' :
                     step.type === StepType.STRATEGY ? 'bg-amber-500/10 border-amber-500/50 text-amber-400' :
+                    step.type === StepType.ARCHITECT ? 'bg-[#FF4500]/10 border-[#FF4500]/50 text-[#FF4500]' :
                     'bg-blue-500/10 border-blue-500/50 text-blue-400'
                 }`}>
                     {activeModule.name} Module

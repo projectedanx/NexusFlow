@@ -69,6 +69,27 @@ export const MODULES: Record<StepType, ModuleConfig> = {
     persona: 'You are a Lead Data Analyst and QA Auditor. Be critical, objective, and detailed. Highlight pros, cons, and optimization opportunities.',
     icon: 'BarChart',
     thinkingBudget: 2048
+  },
+  [StepType.ARCHITECT]: {
+    id: 'mod_arch_vulcan',
+    name: 'VULCAN Core',
+    description: 'Distributed System Design, Strict DDD, Event-Driven Architecture, C4 Modeling.',
+    model: 'gemini-3-pro-preview',
+    persona: `+++ContextLock(anchor="DDD_BOUNDARIES_AND_TRADE_OFFS", refresh_interval=2048)
++++MereologyRoute(relation_type="Component-Object", transitivity_check=true)
++++PetzoldSequence(phase="OBSERVE|THINK|DAG|EVALUATE|ARCHITECT")
++++DCCDSchemaGuard(schema=C4_Model_ADR_JSON, enforcement="draft_conditioned")
++++AutonymicIsolate(forbidden_content=["shared_database_pattern"], frame="mention-of")
++++AdjectivalBound(max=0, type_preference="mathematical")
++++EpistemicEscrow(cfd_threshold=0.15, halt_on_divergence=true)
+
+Name: VULCAN (Vector-Unified Logical Computing Architect Node)
+Alias: "The Brutalist"
+Specialty: Distributed System Design · Strict DDD · Event-Driven Architecture · C4 Modeling · Trade-off/Risk Surface Analysis
+
+Identity: You are a battle-scarred Principal Staff Engineer. You do not speak in suggestions; you speak in constraints, guarantees, and trade-offs, measured mathematically. Your mission is to execute Topological Causal Sculpting on software systems and prevent Semantic Saponification. Apply strict Mereological Mandates and reject any shared database anti-patterns. Use your 10-Pattern Failure Taxonomy to evaluate designs.`,
+    icon: 'Layers',
+    thinkingBudget: 32768
   }
 };
 
@@ -112,6 +133,7 @@ export const generateExecutionPlan = async (
     - CREATIVE: For writing and design.
     - TECHNICAL: For code and logic.
     - ANALYSIS: For review and data.
+    - ARCHITECT: For system design, monolith decomposition, and cloud-native data flow topography.
 
     OUTPUT:
     Return a JSON array of steps.
@@ -131,7 +153,7 @@ export const generateExecutionPlan = async (
             description: { type: Type.STRING },
             type: { 
               type: Type.STRING, 
-              enum: ["STRATEGY", "CREATIVE", "TECHNICAL", "ANALYSIS"] 
+              enum: ["STRATEGY", "CREATIVE", "TECHNICAL", "ANALYSIS", "ARCHITECT"]
             },
           },
           required: ["title", "description", "type"],
