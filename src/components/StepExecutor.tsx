@@ -33,7 +33,7 @@ interface StepExecutorProps {
  * @param {StepExecutorProps} props - The properties passed to the component.
  * @returns {React.JSX.Element} The rendered execution interface.
  */
-export const StepExecutor: React.FC<StepExecutorProps> = ({ step, onExecute, isExecuting, onAppendToScratchpad }) => {
+export const StepExecutor: React.FC<StepExecutorProps> = ({ step, onExecute, isExecuting, onAppendToScratchpad, onMarkAsScar }) => {
   const [copied, setCopied] = React.useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
   const activeModule = MODULES[step.type];
@@ -69,6 +69,7 @@ export const StepExecutor: React.FC<StepExecutorProps> = ({ step, onExecute, isE
                     step.type === StepType.CREATIVE ? 'bg-purple-500/10 border-purple-500/50 text-purple-400' :
                     step.type === StepType.STRATEGY ? 'bg-amber-500/10 border-amber-500/50 text-amber-400' :
                     step.type === StepType.ARCHITECT ? 'bg-[#FF4500]/10 border-[#FF4500]/50 text-[#FF4500]' :
+                    step.type === StepType.VIPER ? 'bg-[#E63946]/10 border-[#E63946]/50 text-[#E63946]' :
                     'bg-blue-500/10 border-blue-500/50 text-blue-400'
                 }`}>
                     {activeModule.name} Module

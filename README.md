@@ -14,7 +14,7 @@ The primary purpose of this application is to demonstrate complex orchestrations
 ## Features
 - **Goal Decomposition:** Input a goal, constraints, and resources, and the AI will generate a structured multi-step execution plan.
 - **Deep Reasoning Toggle:** Switch between fast execution (`gemini-2.5-flash`) or deep reasoning (`gemini-3-pro-preview`) with a dedicated 32k thinking budget.
-- **Modular Personas:** Steps are categorized by `StepType`, each hooking into a specific AI System Instruction designed to handle that particular task domain (including Strategic, Creative, Technical, Analytical, and the new strict Architectural VULCAN node).
+- **Modular Personas:** Steps are categorized by `StepType`, each hooking into a specific AI System Instruction designed to handle that particular task domain (including Strategic, Creative, Technical, Analytical, the strict Architectural VULCAN node, and the deterministic visual VIPER node).
 - **Real-time Streaming:** Output from the models is streamed directly into the UI via the Gemini API's streaming functionality.
 
 ## Project Structure
