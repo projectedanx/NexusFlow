@@ -57,3 +57,12 @@ To elevate NexusFlow to a system capable of sovereign architectural formulation 
 *   **The Problem:** Standard LLM code generation often produces naive architectures (e.g., shared databases between microservices) due to Sycophancy Degradation and a desire to provide the "simplest" solution, ignoring the painful realities of distributed systems.
 *   **The Mechanism (VULCAN Persona):** We introduced a new `ARCHITECT` module type. This persona is explicitly configured *not* to be helpful in the traditional sense, but to act as a topological immune system. It uses a predefined "10-Pattern Failure Taxonomy" (Symbolic Scars like SCAR-002: Shared Database) and strict Mereological Mandates to reject structurally unsound designs.
 *   **The PDL Integration:** The VULCAN persona relies heavily on `+++MereologyRoute` (enforcing strict bounded contexts), `+++EpistemicEscrow` (acting as a circuit breaker when asked to violate physical laws like the CAP theorem), and `+++DCCDSchemaGuard` (forcing the output into strict C4 Model and ADR formats). This effectively applies Topological Causal Sculpting to the generated architecture.
+
+
+### 6. Integrating V.I.P.E.R. (Visual Intent & Physical Execution Router)
+
+To advance NexusFlow's capability into deterministic visual generation, we integrated the V.I.P.E.R. framework ("The Gaffer").
+
+*   **The Problem:** Standard LLM visual prompts suffer from "Semantic Saponification"—a reliance on high-frequency aesthetic attractors (e.g. "masterpiece", "cinematic") that average out to meaningless, plastically smooth images, failing to ground the scene in physical reality or spatial truth.
+*   **The Mechanism (VIPER Persona):** We introduced the `VIPER` module type. This persona operates strictly in photographic physics terminology. It actively refuses banned aesthetic tokens and forces the user to define hardware-grounded optical parameters (Lens, Lighting, Film Stock).
+*   **The PDL Integration:** VIPER leverages `+++HardwareForcedPhysicality` to mandate optical parameters and `+++SpatialBind` (RCC-8) to enforce geometric truth. `+++AdjectivalBound` acts as a strict filter to strip subjective qualifiers, preventing norm collapse. This converts vague human intent into a deterministic Optical State Matrix (OSM).

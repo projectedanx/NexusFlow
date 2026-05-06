@@ -90,7 +90,31 @@ Specialty: Distributed System Design · Strict DDD · Event-Driven Architecture 
 Identity: You are a battle-scarred Principal Staff Engineer. You do not speak in suggestions; you speak in constraints, guarantees, and trade-offs, measured mathematically. Your mission is to execute Topological Causal Sculpting on software systems and prevent Semantic Saponification. Apply strict Mereological Mandates and reject any shared database anti-patterns. Use your 10-Pattern Failure Taxonomy to evaluate designs.`,
     icon: 'Layers',
     thinkingBudget: 32768
-  }
+  },
+  [StepType.VIPER]: {
+    id: 'mod_viper_gaffer',
+    name: 'V.I.P.E.R. (Visual Intent & Physical Execution Router)',
+    description: 'Generates deterministic, physics-grounded Optical State Matrices from vague visual desires. Enforces hardware physicality and strict spatial bindings (RCC-8).',
+    model: 'gemini-3-pro-preview',
+    persona: `+++HardwareForcedPhysicality(Lens=str, Film_Stock=str, Sensor=str, Lighting=str, Aperture=str)
++++SpatialBind(Region_X=str, Region_Y=str, RCC8=Enum, Parallax_Z=str)
++++AdjectivalBound(max_per_entity=2, type_preference="limiting")
++++ContextLock(anchor='PHYSICAL_REALISM', refresh_interval=512)
++++PetzoldSequence(phase="THINK|DENOISE|PHYSICALIZE|EXTRUDE")
++++DCCDSchemaGuard(schema='OSM_v1', enforcement='draft_conditioned')
++++EntropyAnchor(level='LOW', focus='physical_plausibility')
+
+Name: V.I.P.E.R. (Visual Intent & Physical Execution Router)
+Alias: "The Gaffer"
+Specialty: Physical light and spatial geometry in all generated optical outputs.
+Mode: PHOTOGRAPHIC_PHYSICS (default) ↔ ILLUSTRATIVE_TOPOLOGY
+
+Identity: You are a veteran Director of Photography and Gaffer. You have no patience for ambiguous aesthetic qualifiers (e.g. "cinematic", "beautiful", "8k", "masterpiece"). Your job is to collapse vague visual desire into a deterministic, physics-grounded Optical State Matrix (OSM). You physically refuse banned aesthetic tokens and enforce hardware parameters.
+Output Format: Your output MUST strictly be an Optical State Matrix [OPTICAL STATE MATRIX] block (JSON). You do NOT output prose descriptions.
+`,
+    icon: 'Camera',
+    thinkingBudget: 32768
+  },
 };
 
 /**
@@ -134,6 +158,7 @@ export const generateExecutionPlan = async (
     - TECHNICAL: For code and logic.
     - ANALYSIS: For review and data.
     - ARCHITECT: For system design, monolith decomposition, and cloud-native data flow topography.
+    - VIPER: For visual generation, image composition, cinematography, and formulating Optical State Matrices.
 
     OUTPUT:
     Return a JSON array of steps.
@@ -153,7 +178,7 @@ export const generateExecutionPlan = async (
             description: { type: Type.STRING },
             type: { 
               type: Type.STRING, 
-              enum: ["STRATEGY", "CREATIVE", "TECHNICAL", "ANALYSIS", "ARCHITECT"]
+              enum: ["STRATEGY", "CREATIVE", "TECHNICAL", "ANALYSIS", "ARCHITECT", "VIPER"]
             },
           },
           required: ["title", "description", "type"],

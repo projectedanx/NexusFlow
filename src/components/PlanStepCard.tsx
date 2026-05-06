@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { PlanStep, StepStatus, StepType } from '../types';
-import { Play, CheckCircle, CircleDashed, Clock, Code, PenTool, Lightbulb, BarChart, BrainCircuit } from 'lucide-react';
+import { Play, CheckCircle, CircleDashed, Clock, Code, PenTool, Lightbulb, BarChart, BrainCircuit, Camera } from 'lucide-react';
 
 /**
  * Props for the PlanStepCard component.
@@ -33,6 +33,7 @@ const getTypeIcon = (type: StepType) => {
     case StepType.CREATIVE: return <PenTool className="w-4 h-4 text-purple-400" />;
     case StepType.STRATEGY: return <Lightbulb className="w-4 h-4 text-amber-400" />;
     case StepType.ANALYSIS: return <BarChart className="w-4 h-4 text-blue-400" />;
+    case StepType.VIPER: return <Camera className="w-4 h-4 text-[#E63946]" />;
     default: return <CircleDashed className="w-4 h-4 text-gray-400" />;
   }
 };
