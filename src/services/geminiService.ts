@@ -10,11 +10,11 @@ import { PlanStep, StepType, StepStatus, ModuleConfig } from "../types";
 // to adhere to security constraints.
 
 /**
- * Initializes and returns an instance of the Google Gen AI client.
- * Relies on the `API_KEY` environment variable being set in the process.
+ * Initializes and retrieves the Google Gen AI client singleton.
+ * Validates the existence of the GEMINI_API_KEY environment variable.
  *
- * @returns {GoogleGenAI} An authenticated instance of the Google Gen AI client configured for the application's environment.
- * @throws {Error} If the API_KEY environment variable is missing or undefined.
+ * @returns {GoogleGenAI} The initialized Google Gen AI client.
+ * @throws {Error} If the GEMINI_API_KEY environment variable is not defined.
  */
 const getAiClient = () => {
   // Assuming process.env.API_KEY is available in the environment
@@ -26,10 +26,9 @@ const getAiClient = () => {
 };
 
 /**
- * Defines the "Modular Components" of the execution pipeline.
- * Each module acts as a specialized AI agent with a specific persona, model,
- * and cognitive budget tailored to its domain (Strategy, Creative, Technical, Analysis).
- *
+ * Registry of available AI execution modules mapped to their respective StepTypes.
+ * Each module configuration defines the specific model, persona, constraints,
+ * and cognitive budgets for a distinct phase of the orchestration pipeline.
  * @constant
  * @type {Record<StepType, ModuleConfig>}
  */

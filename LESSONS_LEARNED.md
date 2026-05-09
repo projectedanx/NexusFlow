@@ -66,3 +66,11 @@ To advance NexusFlow's capability into deterministic visual generation, we integ
 *   **The Problem:** Standard LLM visual prompts suffer from "Semantic Saponification"—a reliance on high-frequency aesthetic attractors (e.g. "masterpiece", "cinematic") that average out to meaningless, plastically smooth images, failing to ground the scene in physical reality or spatial truth.
 *   **The Mechanism (VIPER Persona):** We introduced the `VIPER` module type. This persona operates strictly in photographic physics terminology. It actively refuses banned aesthetic tokens and forces the user to define hardware-grounded optical parameters (Lens, Lighting, Film Stock).
 *   **The PDL Integration:** VIPER leverages `+++HardwareForcedPhysicality` to mandate optical parameters and `+++SpatialBind` (RCC-8) to enforce geometric truth. `+++AdjectivalBound` acts as a strict filter to strip subjective qualifiers, preventing norm collapse. This converts vague human intent into a deterministic Optical State Matrix (OSM).
+
+### JSDoc Strictness & Documentation Coverage
+
+The requirement to ensure 100% comprehensive docstring coverage for all public interfaces across the repository acts as a forcing function for clarity. When integrating complex system architectures (like PDL decorators and Stigmergic scratchpads) into the codebase, robust documentation transforms abstract systemic intent into maintainable logic for future developers. Applying stringent type and role documentation minimizes cognitive load when expanding the orchestration layers later.
+
+### Emphasizing Human-in-the-Loop in Documentation
+
+When updating project guides, explicitly mapping advanced conceptual models (like Paraconsistent Stigmergic Coordination) into actionable human behaviors (e.g., utilizing the Scratchpad UI to inject contextual tension) bridge the gap between theoretical architecture and practical usage.
