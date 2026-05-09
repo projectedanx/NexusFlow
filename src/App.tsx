@@ -49,10 +49,12 @@ const App: React.FC = () => {
   };
 
   /**
-   * Submits the current user context to the AI Orchestrator to generate
-   * a structured execution plan. Updates state with the resulting steps.
+   * Generates a comprehensive execution plan based on the user's provided context.
+   * Invokes the geminiService to deconstruct the goal into actionable steps.
+   * Updates pipeline stage and populates the steps array on success.
    *
    * @async
+   * @returns {Promise<void>}
    */
   const handleGeneratePlan = async () => {
     if (!context.goal.trim()) return;
@@ -88,6 +90,13 @@ const App: React.FC = () => {
    * @param {PlanStep} step - The specific step object to execute.
    */
 
+  /**
+   * Records a new Symbolic Scar representing a contradiction or tension,
+   * adding it to the context's scar registry for paraconsistent coordination.
+   *
+   * @param {string} text - The description of the symbolic scar to register.
+   * @returns {void}
+   */
   const handleMarkAsScar = (text: string) => {
     setContext(prev => ({
       ...prev,
@@ -99,6 +108,13 @@ const App: React.FC = () => {
     }));
   };
 
+  /**
+   * Appends the provided text to the Stigmergic Scratchpad,
+   * allowing users to inject insights into the shared memory context.
+   *
+   * @param {string} text - The text to append to the scratchpad.
+   * @returns {void}
+   */
   const handleAppendToScratchpad = (text: string) => {
     setContext(prev => ({
       ...prev,
@@ -106,6 +122,14 @@ const App: React.FC = () => {
     }));
   };
 
+  /**
+   * Triggers the AI execution for a specific plan step.
+   * Streams the AI response directly into the UI, updating the step's result in real-time.
+   *
+   * @async
+   * @param {PlanStep} step - The specific plan step to be executed.
+   * @returns {Promise<void>}
+   */
   const handleExecuteStep = async (step: PlanStep) => {
     if (isExecutingStep) return;
 
@@ -146,7 +170,10 @@ const App: React.FC = () => {
   };
 
   /**
-   * Resets the entire application state back to the initial input phase.
+   * Resets the entire application state back to the initial input stage.
+   * Clears the current execution plan and active steps.
+   *
+   * @returns {void}
    */
   const resetPipeline = () => {
     setSteps([]);

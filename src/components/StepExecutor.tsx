@@ -16,6 +16,8 @@ import { MODULES } from '../services/geminiService';
  * @property {PlanStep} step - The currently selected execution step to be processed or reviewed.
  * @property {(step: PlanStep) => void} onExecute - Callback fired to trigger the AI execution pipeline for this step.
  * @property {boolean} isExecuting - Flag indicating whether the AI is currently generating a response for this step.
+ * @property {(text: string) => void} [onAppendToScratchpad] - Optional callback to append the generated text to the Stigmergic Scratchpad.
+ * @property {(text: string) => void} [onMarkAsScar] - Optional callback to mark the generated text as a Symbolic Scar.
  */
 interface StepExecutorProps {
   step: PlanStep;
