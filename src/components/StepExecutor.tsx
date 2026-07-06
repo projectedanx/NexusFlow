@@ -1,3 +1,4 @@
+import DOMPurify from 'dompurify';
 /**
  * @fileoverview Defines the StepExecutor component, which provides the primary workspace
  * for running and reviewing the output of individual AI module steps.
@@ -207,7 +208,7 @@ export const StepExecutor: React.FC<StepExecutorProps> = ({ step, onExecute, isE
                     blockquote: ({node, ...props}) => <blockquote className="border-l-4 border-nexus-500 pl-4 py-1 my-4 bg-nexus-800/30 rounded-r" {...props} />,
                   }}
                 >
-                  {step.result || ''}
+                  {DOMPurify.sanitize(step.result || '')}
                 </ReactMarkdown>
                 {isExecuting && (
                   <div className="inline-block w-2 h-4 bg-nexus-accent ml-1 animate-pulse align-middle" />

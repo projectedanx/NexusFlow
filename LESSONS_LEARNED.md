@@ -92,3 +92,13 @@ The documentation for the repository needed an overhaul to accurately map the st
 1.  **5-Tier `README.md`**: Fully replaced legacy docs with structured mapping (Identity, Topology, CI Cartograph, Entropy Audit, Runbook).
 2.  **`pattern_inventory.json`**: Standardized output manifest for the 0xCARTO agent's structural pattern constraints.
 3.  **`validation_report.md`**: Captured the epistemic confidence (Φ = 0.04) and Ground Truth Isomorphism Delta regarding the API Key.
+
+### 4. Implementation of the Epistemic Engineer PDL v1.0 (Paradox Metabolizer)
+
+As part of integrating the Paradox Metabolizer system, we extended the Cognitive Bytecode decorators to manage paradoxes, truth-frame nesting, and ambiguity amplification.
+
+*   **Paradox Inoculation**: The prompts were loaded with a list of "Known Paradoxes" to train the model to metabolize contradictions (e.g., readability vs. performance, simplicity vs. power).
+*   **Discriminated Truth-Frames**: We established the `TruthFrame` discriminated union pattern in TypeScript to enforce paradox forking at the code level. This guarantees that `FRAME_P`, `FRAME_NOT_P`, and `SYNTHESIS` are distinct, type-safe states that handle epistemic tension explicitly.
+*   **Immune System Integration**: `DOMPurify` was integrated into the UI (specifically `StepExecutor`) to sanitize outputs before rendering via React Markdown, satisfying the tech stack constraints and adding a critical layer of defense against hijacked or drift-related outputs.
+*   **Systemic Lens Decorators**: A series of `+++LENS` decorators (LENS-A to LENS-E) were added to the prompt generation, including `paradox_detector`, `ambiguity_amplifier`, `scar_archaeology`, `pluriversal_audit`, and `stack_fidelity`. This provides specialized, contextual checks over every inference step.
+*   **Recursion Guards and Metaphor Enforcement**: We introduced constraints like `+++RecursionGuard(max_depth=3)` and `+++MetaphorContract` to prevent runaway self-reference and maintain clarity when bridging domains.

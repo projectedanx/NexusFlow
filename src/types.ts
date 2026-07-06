@@ -213,3 +213,13 @@ export interface ModuleConfig {
    */
   thinkingBudget?: number;
 }
+
+
+/**
+ * Represents a truth-frame in the paradox metabolizer to prevent truth collapse.
+ * Paraconsistent logic dictates this tension is preserved, not resolved.
+ */
+export type TruthFrame =
+  | { type: 'FRAME_P'; context: string; scope: string; payload: string }
+  | { type: 'FRAME_NOT_P'; context: string; scope: string; payload: string }
+  | { type: 'SYNTHESIS'; context: string; scope: string; payload: string };
